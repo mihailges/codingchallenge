@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductPromotions extends Model
 {
+    const NO_PROMOTION = 1;
+    const BUY_ONE_GET_ONE_FREE = 2;
 
     protected $table = 'product_promotions';
      /**
@@ -17,8 +19,5 @@ class ProductPromotions extends Model
     protected $fillable = [
         'name', 'text', 'description',
     ];
-
-    const NO_PROMOTION = 1;
-    const BUY_ONE_GET_ONE_FREE = 2;
 
 }
