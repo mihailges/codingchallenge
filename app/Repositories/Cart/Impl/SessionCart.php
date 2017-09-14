@@ -20,9 +20,9 @@ class SessionCart implements CartRepository
 	/** [Add product to cart] */
 	public function addProduct(Request $product)
 	{
-		if(Session::has('cart'))
+		if (Session::has('cart'))
 		{
-			if($this->productExistsInCart(Session::get('cart'), $product))
+			if ($this->productExistsInCart(Session::get('cart'), $product))
 			{
 				return $this->addExistingProduct(Session::get('cart'), $product);
 			}
@@ -37,10 +37,10 @@ class SessionCart implements CartRepository
 		Session::flush();
 	}
 
-	/** [Calculate total price and total items] */
+	/** [Calculate total price, total items] */
 	public function calculate(CartCalculatorInterface $cartCalculator)
 	{
-		if(count(Session::get('cart')) > 0)
+		if (count(Session::get('cart')) > 0)
 		{
 			return $cartCalculator->calculate();
 		}
@@ -49,9 +49,9 @@ class SessionCart implements CartRepository
 	/** [Check if product exists in the cart] */
 	private function productExistsInCart($cart, $product)
 	{
-		foreach($cart as $item)
+		foreach ($cart as $item)
 		{
-			if($item['product_id'] == $product->product_id)
+			if ($item['product_id'] == $product->product_id)
 			{
 				return true;
 			}
@@ -63,12 +63,11 @@ class SessionCart implements CartRepository
 	/** [Add already existing product in the cart] */
 	private function addExistingProduct($cart, $product)
 	{
-		foreach($cart as &$item)
+		foreach ($cart as &$item)
 		{
-			if($item['product_id'] == $product->product_id)
+			if ($item['product_id'] == $product->product_id)
 			{
-				$item['qty'] = $item['qty'] + $this->handleProductQty($product);	
-
+				$item['qty'] = $item['qty'] + 1;	
 				break;
 			}
 		}
@@ -79,13 +78,12 @@ class SessionCart implements CartRepository
 	/** [Add new product in the cart] */
 	private function addNewProduct($product)
 	{
-		$productQty = $this->handleProductQty($product);
 		$data = array(
 			'product_id' => $product->product_id,
 			'product_name' => $product->product_name,
 			'product_price' => $product->product_price,
 			'product_promotion' =>  $product->product_promotion,
-			'qty' => $productQty
+			'qty' => 1
 		);
 
 		Session::push('cart', $data);
@@ -94,7 +92,7 @@ class SessionCart implements CartRepository
 	/** [Check if product has a promotion and return the quantity] */
 	private function handleProductQty($product)
 	{
-		if($product->product_promotion == 1)
+		if ($product->product_promotion == 1)
 		{
 			return $product->product_qty * 2;
 		}

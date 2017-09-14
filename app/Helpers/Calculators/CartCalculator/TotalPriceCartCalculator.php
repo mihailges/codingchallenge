@@ -4,6 +4,7 @@ namespace App\Helpers\Calculators\CartCalculator;
 
 use App\Helpers\Calculators\CartCalculator\CartCalculatorInterface;
 use Session;
+use App\Factories\PromotionCalculatorFactory\PromotionCalculatorFactory;
 
 
 class TotalPriceCartCalculator implements CartCalculatorInterface 
@@ -13,9 +14,12 @@ class TotalPriceCartCalculator implements CartCalculatorInterface
 	{
 		$totalPrice = 0;
 
-		foreach(Session::get('cart') as $item)
+		foreach (Session::get('cart') as $item)
 		{
-			$totalPrice += $item['qty'] * $item['product_price'];
+			// Calculate total price including a product promotion
+			$promotionCalculator = PromotionCalculatorFactory::create($item['product_promotion'], $item['product_price'], $item['qty']);
+
+			$totalPrice += $promotionCalculator->returnPrice();
 		}
 
 		return $totalPrice;

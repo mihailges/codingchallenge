@@ -1,51 +1,82 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+## SIMPLE SHOPPING CART - Coding challenge task
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
 
-## About Laravel
+## SETUP INSTRUCTIONS 
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+These following instructions are for setting up the project in a LAMP environment.
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb combination of simplicity, elegance, and innovation give you tools you need to build any application with which you are tasked.
+1. Clone the project to your server's web directory localy
 
-## Learning Laravel
+2. Create new virtual host or modify the default one (usually in /etc/apache2/sites-available)
 
-Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
+	- Modify the DocumentRoot and the Directory: 	
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+		"ServerAdmin webmaster@localhost <br />
+         DocumentRoot /PATH_TO_YOUR_WEB_DIR/codingchallenge/public
 
-## Laravel Sponsors
+         <Directory /PATH_TO_YOUR_WEB_DIR/codingchallenge/public> <br />
+                AllowOverride all <br />
+         </Directory>"
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](http://patreon.com/taylorotwell):
+    - If you've modified the default conf just restart the apache server:
 
-- **[Vehikl](http://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Styde](https://styde.net)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
+    	"sudo service apache2 restart"
 
-## Contributing
+      If you've created a new configuration first enable it and then restart apache:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+      	"sudo a2ensite NAME_OF_YOUR_CONF_FILE.conf" <br />
+      	"sudo service apache2 restart" 
 
-## Security Vulnerabilities
+3. Install composer on you machine and after the installation, in your project's root directory (/codingchallenge) run this command to install the dependencies:
+	
+	"composer install"
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+4. Set permissions to be writable on the following folders recursively: 
+	
+	"/PATH_TO_YOUR_WEB_DIR/codingchallenge/storage"
+	
+	 and 
+	
+	"PATH_TO_YOUR_WEB_DIR/codingchallenge/bootstrap/cache"
 
-## License
+5. Set an application key (/codingchallenge):
+	
+	- First rename the ".env.example" file (which is in your root project directory) into ".env":
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+		"mv .env.example .env"
+	
+	- Run this command in your project's root directory (/codingchallenge) to set the application key 
+
+		"php artisan key:generate"
+
+6. Create database for the project and set the databse name and your database connection details in the ".ENV" file
+
+6. Run migrations
+	
+	"php artisan migrate"
+
+7. Run database seeders
+
+	"php artisan db:seed"
+
+7. Go to http://localhost/products 
+
+Useful links: <br />
+https://www.digitalocean.com/community/tutorials/how-to-set-up-apache-virtual-hosts-on-ubuntu-14-04-lts <br /> 
+https://getcomposer.org/doc/00-intro.md <br />
+https://laravel.com/docs/5.4#installing-laravel <br />
+
+
+
+## PROJECT DESCRIPTION 
+
+
+- Laravel 5.4
+
+- Routes: <br />
+	Products page (http://localhost/products) <br />
+	Shopping cart (http://localhost/cart)
+
+- Run unit tests (in the project's root dir): <br />
+	vendor/bin/phpunit

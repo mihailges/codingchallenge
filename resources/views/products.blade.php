@@ -27,20 +27,16 @@
              
                   <tr>
                     </td>
-                    <td>{{ $product['name'] }}</td>
-                    <td>${{ $product['price'] }}</td>
-                    <td>
-                        @if($product['promotion'] == 1)
-                        {{ 'Buy one get one for free!' }}
-                        @endif
-                    </td>
+                    <td>{{ $product->name }}</td>
+                    <td>${{ $product->price }}</td>
+                    <td>{{ $product->promotion_text }}</td>
                     <td>
                         <form action="{{ route('add-product-cart') }}" method="post">
-                            <input type="hidden" value="{{ $product['id'] }}" name="product_id"/>
-                            <input type="hidden" value="{{ $product['name'] }}" name="product_name"/>
-                            <input type="hidden" value="{{ $product['price'] }}" name="product_price"/>
+                            <input type="hidden" value="{{ $product->product_id }}" name="product_id"/>
+                            <input type="hidden" value="{{ $product->name }}" name="product_name"/>
+                            <input type="hidden" value="{{ $product->price }}" name="product_price"/>
                             <input type="hidden" value="1" name="product_qty"/>
-                            <input type="hidden" value="{{ $product['promotion'] }}" name="product_promotion"/>
+                            <input type="hidden" value="{{ $product->promotion_id }}" name="product_promotion"/>
                             <button type="submit" class="btn btn-default">Add to cart</button>
                         </form>
                     </td>

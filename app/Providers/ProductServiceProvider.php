@@ -24,6 +24,6 @@ class ProductServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('App\Repositories\Product\ProductRepository', 'App\Repositories\Product\Impl\ConstArrayProduct');
+        $this->app->bind('App\Repositories\Product\ProductRepository', 'App\Repositories\Product\Impl\EloquentProduct');
     }
 }
