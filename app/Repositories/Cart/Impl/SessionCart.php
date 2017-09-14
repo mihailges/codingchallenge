@@ -89,15 +89,4 @@ class SessionCart implements CartRepository
 		Session::push('cart', $data);
 	}
 
-	/** [Check if product has a promotion and return the quantity] */
-	private function handleProductQty($product)
-	{
-		if ($product->product_promotion == 1)
-		{
-			return $product->product_qty * 2;
-		}
-
-		return $product->product_qty;
-	}
-
 }
