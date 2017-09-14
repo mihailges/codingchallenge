@@ -1,4 +1,4 @@
-## SIMPLE SHOPPING CART - Coding challenge task
+## SIMPLE SHOPPING CART - Coding challenge test
 
 
 ## SETUP INSTRUCTIONS 
